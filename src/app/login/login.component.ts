@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,FormControlName  } from '@angular/forms';
 import { BaseService } from '../services/base.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,7 @@ import { BaseService } from '../services/base.service';
 })
 export class LoginComponent implements OnInit {
   loginForm;
-  constructor(private _base: BaseService) { }
+  constructor(private _base: BaseService, private router:Router) { }
 
   ngOnInit() {
      this.loginForm = new FormGroup({
@@ -22,8 +23,11 @@ export class LoginComponent implements OnInit {
   login()
   {
     this._base.login(this.loginForm.value).subscribe(res=>{
-      console.log(res);
-    })
+      localStorage.setItem('token',res.token);
+      console.log(res.token);
+      this.router.navigate(['/thumbnail']);
+
+    });
   }
 
 }
