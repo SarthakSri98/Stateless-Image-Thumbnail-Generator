@@ -1,0 +1,24 @@
+<div id="wrapper">
+	<div class="container">
+		<h1>Welcome</h1>
+		
+		<form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+			<input type="text" placeholder="Username" readonly onfocus="this.removeAttribute('readonly')" formControlName="username">
+			<input type="password" placeholder="Password" readonly onfocus="this.removeAttribute('readonly')" formControlName="password">
+      <button type="submit" id="login-button">Login</button><br><br>
+		</form>
+	</div>
+	
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
