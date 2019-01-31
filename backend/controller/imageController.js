@@ -1,11 +1,11 @@
 const fs = require('fs');
 const request = require('request');
 const isImageUrl = require('is-image-url');
+const nJwt = require('jsonwebtoken');
 var im = require('imagemagick');
 
 
 
-var i = 1;
 
 
 var download = function (uri, filename, callback) {
@@ -18,29 +18,38 @@ var download = function (uri, filename, callback) {
 
 
 exports.returnThumbnail = function (req, res, next) {
-    
-  console.log(req.body);
-  if (isImageUrl(req.body.imageUrl)) {
-    download(req.body.imageUrl, './backend/controller/full.png', function () {
-      console.log('done');
-
-      im.resize({
-        srcPath: './backend/controller/full.png',
-        dstPath: './backend/images/thumbnail.png',
-        width: 50,
-        height: 50
-      }, function(err, stdout, stderr){
-        // if (err) throw err;
-        console.log('resized image to fit within 50x50px');
-    });
-
+  nJwt.verify(req.body.token,'the_good_the_bad_and_the_uchihas',function(err,token){
+    if(err){
       res.status(200).json({
-        message: "Process going on",
-        imagePath: 'backend/images/thumbnail.png'
-      });
-      i++;
-    });
-  } else {
-    console.log("Image not found");
-  }
+        message:"User not authorised"
+      })
+    }else{
+      console.log(req.body);
+      if (isImageUrl(req.body.imageUrl)) {
+        const now = new Date();
+        const d = now.getMilliseconds();
+        download(req.body.imageUrl, './backend/controller/' + d + '.png', function () {
+          console.log('done');
+         
+          im.resize({
+            srcPath: './backend/controller/' + d + '.png',
+            dstPath: './backend/images/' + d + 'thumbnail.png',
+            width: 50,
+            height: 50
+          }, function(err, stdout, stderr){
+            // if (err) throw err;
+            res.status(200).json({
+                message: "Process going on",
+                imagePath: '/backend/images/' + d + 'thumbnail.png'
+              });
+            console.log('resized image to fit within 50x50px');
+        });
+        });
+      } else {
+        console.log("Image not found");
+      }      return true;
+    }
+  });
+
+  
 }

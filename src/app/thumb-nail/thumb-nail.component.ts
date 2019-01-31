@@ -14,6 +14,7 @@ export class ThumbNailComponent implements OnInit {
   jsonpatch = require('fast-json-patch')
   imageForm;
   image;
+  thumbNail;
   imagePath:string="#";
   constructor(private _base: BaseService, private router:Router) { }
 
@@ -34,8 +35,8 @@ doc = this.jsonpatch.applyPatch(doc, patch).newDocument;
     this._base.submitImage(doc).subscribe(res=>{
       console.log(res);
       this.image = document.getElementById('image');
-      this.image.style.display='block';
-      console.log(this.image.style.display);
+      this.thumbNail = document.getElementById('thumbNail');
+      this.thumbNail.style.display='block';
       this.imagePath = res.imagePath;
     })
   }

@@ -5,8 +5,11 @@
 		<form class="form" [formGroup]="imageForm" (ngSubmit)="submit()">
 			<input type="text" placeholder="Image Url" readonly onfocus="this.removeAttribute('readonly')" formControlName="imageUrl">
       <button type="submit" id="login-button">Submit</button><br><br>
-    </form>
-    <img id="image" [src]="imagePath">
+	</form>
+	<div id="thumbNail">
+		<a [href]="imagePath" [download]="imagePath"><img id="image" [src]="imagePath"></a>
+   </div>
+	<!-- <img src="assets/images/thumbnail94.png"> -->
 	</div>
 	
 	<ul class="bg-bubbles">
