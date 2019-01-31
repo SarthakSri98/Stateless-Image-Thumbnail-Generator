@@ -20,8 +20,11 @@ var download = function (uri, filename, callback) {
 exports.returnThumbnail = function (req, res, next) {
   nJwt.verify(req.body.token,'the_good_the_bad_and_the_uchihas',function(err,token){
     if(err){
-      res.status(200).json({
-        message:"User not authorised"
+
+      res.status(401).json({
+        message:"User not authorized",
+        authorized: false
+
       })
     }else{
       console.log(req.body);
@@ -39,15 +42,19 @@ exports.returnThumbnail = function (req, res, next) {
           }, function(err, stdout, stderr){
             // if (err) throw err;
             res.status(200).json({
-                message: "Process going on",
-                imagePath: '/backend/images/' + d + 'thumbnail.png'
+                converted: true,
+                imagePath: '/backend/images/' + d + 'thumbnail.png',
+                authorized: true
+
               });
             console.log('resized image to fit within 50x50px');
         });
         });
       } else {
-        console.log("Image not found");
-      }      return true;
+        res.status(400).json({
+          message:"User not authorized"
+        })
+      }
     }
   });
 

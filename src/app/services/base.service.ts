@@ -16,6 +16,6 @@ export class BaseService {
 
   submitImage(data)
   {
-    return this.http.post<{ message:string, imagePath:string }>('http://localhost:8000/image/post',data)
+    return this.http.post<{ message:string, imagePath:string }>('http://localhost:8000/image/generate-thumbnail',data)
   }
 }
