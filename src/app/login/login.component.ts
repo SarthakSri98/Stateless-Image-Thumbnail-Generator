@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   {
     this._base.login(this.loginForm.value).subscribe(res=>{
       localStorage.setItem('token',res.token);
-      console.log(res.token);
+      console.log(res);
       this.router.navigate(['/thumbnail']);
 
     });

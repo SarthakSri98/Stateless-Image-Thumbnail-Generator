@@ -38,6 +38,8 @@ doc = this.jsonpatch.applyPatch(doc, patch).newDocument;
       this.thumbNail = document.getElementById('thumbNail');
       this.thumbNail.style.display='block';
       this.imagePath = res.imagePath;
+    },(error) => {
+      console.log(error);
     })
   }
 

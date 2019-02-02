@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 const { expect } = require('chai')
 const request = require('supertest')
 
@@ -21,9 +23,9 @@ describe('SocialCops Stateless Microservice', () => {
       request.agent(app)
         .post('/user/login')
         .send({ username: 'someone', password: '' })
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(400)
-          done()
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(400)
+                    done();
         })
     })
 

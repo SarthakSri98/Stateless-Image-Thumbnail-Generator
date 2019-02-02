@@ -1,27 +1,86 @@
-# SCNodeTask
+# Stateless Microservice for socialCops
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
+A simple stateless microservice in Nodejs, with three major functionalities -
 
-## Development server
+ * Authentication
+ * JSON patching
+ * Image Thumbnail Generation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+**1.** User authentication with jsonwebtokens.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**2.** Only valid image urls are taken as input and all other kind of urls are discarded.
 
-## Build
+**3.** One can download the thumbnail generated.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Setup
 
-## Running unit tests
+The API requires [Node.js](https://nodejs.org/en/download/)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To get up and running: 
 
-## Running end-to-end tests
+**1.** Clone the repo.
+```
+git clone https://github.com/SarthakSri98/Stateless-Image-Thumbnail-Generator
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+**2.**  ```cd``` into repo. Use the same directory name(below) if you do not change it.
+```
+cd Stateless-Image-Thumbnail-Generator
+```
 
-## Further help
+**3.**  Setup the application by installing its dependencies with
+```
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**4.**  The app gets up and running on port 8000 with ```npm start```.
+ 
+
+## Testing the API routes.
+
+Since this is mostly an API with post and patch requests, testing will be done with [Postman](https://www.getpostman.com/)
+
+### Authentication
+This is a mock authentication so you can pass in any username or password to login.
+ 1. Set the request to **POST** and the url to _/users/login_. 
+ 2. You will be setting 2 keys (for username and password). Set the ```username``` key to any name. Set ```password``` to any password (minimum of 6 characters).
+ 3. Hit ```Send```. You will get a result in this format:
+ ```
+ {
+    "user": "sarthak",
+    "authorized": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhd2Zlc2dyIiwiaWF0IjoxNTQ5MTI2OTgwLCJleHAiOjE1NDkxMzA1ODB9.ywbMXejRhwsxg9A3QRcgPbh7bq2DnPBNTL3h2yIpaiM"
+}
+ ```
+
+### Image Thumbnail Generation
+This request contains a public image URL. It downloads the image, resizes to 50x50 pixels, and returns the resulting thumbnail.
+ 1. Set the request to **POST** and the url to _/image/generate-thumbnail_.
+ 2. Set the key ```imageUrl``` to a public image url.
+ 3. The token generated earlier will be patched with the key.
+ 4. At first, if JWT is missing or invalid then the request will be rejected otherwise,
+ 4. Image will be downloaded and converted to a thumbnail of size 50x50 pixels with a sample result as below:
+ ```
+ {
+    "authorized": true
+    "converted": true
+    "imagePath": "/backend/images/635thumbnail.png"
+}
+```
+
+## Unit Testing
+
+Unit testing is done using mochai.
+
+Run ```npm test``` from the application's root directory.
+
+
+
+## Built With
+
+ * [Node.js](https://nodejs.org)
+ * [Express](https://expressjs.com/)
+ * [Mocha](https://mochajs.org/) - For testing
+

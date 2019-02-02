@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "nodemon server",
     "build": "ng build",
-    "test": "mocha ./backend/test/test.js",
+    "test": "nyc mocha ./backend/test/test.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -47,6 +47,8 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",
     "codelyzer": "~4.2.1",
+    "eslint": "^5.12.1",
+    "grunt": "^1.0.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
@@ -54,6 +56,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "nyc": "^13.1.0",
     "protractor": "~5.4.0",
     "supertest": "^3.4.2",
     "ts-node": "~5.0.1",
