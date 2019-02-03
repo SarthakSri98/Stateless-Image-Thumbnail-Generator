@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm;
+  imagePath:string;
   constructor(private _base: BaseService, private router:Router) { }
 
   ngOnInit() {
@@ -22,6 +23,8 @@ export class LoginComponent implements OnInit {
 
   login()
   {
+    document.getElementById('image').style.display='block';
+    this.imagePath = "https://www.collectcent.com/blog/img/loader.gif";
     this._base.login(this.loginForm.value).subscribe(res=>{
       localStorage.setItem('token',res.token);
       console.log(res);

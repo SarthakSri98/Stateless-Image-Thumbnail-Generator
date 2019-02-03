@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ThumbNailComponent } from './thumb-nail/thumb-nail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatButtonModule} from '@angular/material/button';
 
 var routes : Routes = [
   { path:'', component:LoginComponent },
@@ -19,7 +22,8 @@ var routes : Routes = [
     ThumbNailComponent
   ],
   imports: [
-    BrowserModule,ReactiveFormsModule,FormsModule, HttpClientModule, RouterModule.forRoot(routes)
+    BrowserModule,ReactiveFormsModule,FormsModule, HttpClientModule, RouterModule.forRoot(routes), BrowserAnimationsModule
+    ,MatSnackBarModule,MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl,FormControlName  } from '@angular/forms';
-import { BaseService } from '../services/base.service';
-import { Router } from '@angular/router';
-import { applyOperation } from 'fast-json-patch'
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormControlName
+} from '@angular/forms';
+import {
+  BaseService
+} from '../services/base.service';
+import {
+  Router
+} from '@angular/router';
+import {
+  applyOperation
+} from 'fast-json-patch'
+import {
+  MatSnackBar
+} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -15,31 +31,38 @@ export class ThumbNailComponent implements OnInit {
   imageForm;
   image;
   thumbNail;
-  imagePath:string="#";
-  constructor(private _base: BaseService, private router:Router) { }
+  caption;
+  imagePath: string = "https://www.collectcent.com/blog/img/loader.gif";
+  message: string = "User not authorised";
+  constructor(private _base: BaseService, private router: Router, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
     this.imageForm = new FormGroup({
-      imageUrl : new FormControl('')
+      imageUrl: new FormControl('')
     });
   }
 
-  submit()
-  {
+  submit() {
+    this.thumbNail = document.getElementById('thumbNail');
+    this.thumbNail.style.display = 'block';
     var doc = this.imageForm.value;
-var patch = [
-  { op: "add", path: "/token", value: localStorage.getItem('token') },
-];
-doc = this.jsonpatch.applyPatch(doc, patch).newDocument;
+    var patch = [{
+      op: "add",
+      path: "/token",
+      value: localStorage.getItem('token')
+    }, ];
+    doc = this.jsonpatch.applyPatch(doc, patch).newDocument;
 
-    this._base.submitImage(doc).subscribe(res=>{
-      console.log(res);
+    this._base.submitImage(doc).subscribe(res => {
+      this.message = res.message;
       this.image = document.getElementById('image');
-      this.thumbNail = document.getElementById('thumbNail');
-      this.thumbNail.style.display='block';
+      this.image.classList.add("image");
       this.imagePath = res.imagePath;
-    },(error) => {
-      console.log(error);
+      document.getElementById("caption").style.display = "block";
+    }, (error) => {
+      this.snackbar.open(this.message, '', {
+        duration: 5000
+      });
     })
   }
 

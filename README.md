@@ -6,14 +6,6 @@ A simple stateless microservice in Nodejs, with three major functionalities -
  * JSON patching
  * Image Thumbnail Generation
 
-## Features
-
-**1.** User authentication with jsonwebtokens.
-
-**2.** Only valid image urls are taken as input and all other kind of urls are discarded.
-
-**3.** One can download the thumbnail generated.
-
 ## Setup
 
 The API requires [Node.js](https://nodejs.org/en/download/)
@@ -35,7 +27,7 @@ cd Stateless-Image-Thumbnail-Generator
 npm install
 ```
 
-**4.**  The app gets up and running on port 8000 with ```npm start```.
+**4.**  Also, install nodemon with ```npm install nodemon``` if not installed. The app gets up and running on port 8000 with ```npm start```.
  
 
 ## Testing the API routes.
@@ -83,4 +75,5 @@ Run ```npm test``` from the application's root directory.
  * [Node.js](https://nodejs.org)
  * [Express](https://expressjs.com/)
  * [Mocha](https://mochajs.org/) - For testing
+
 
